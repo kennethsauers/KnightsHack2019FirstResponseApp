@@ -1,9 +1,23 @@
-export interface Pin {
-  Subject: string;
-  Category: string;
-  Priority: string;
-  Location: string;
-  Name: string;
-  Phone: string;
-  Comment: string;
+export class Location {
+  cooords: {
+    lat: number,
+    long: number
+  };
+  address: string;
+};
+
+export class Contact {
+  name: string;
+  phone: string;
+};
+
+export class Pin {
+  type_of: number;
+  subject: string;
+  category: string;
+  status: boolean;
+  priority: number;
+  location: Location;
+  contact: Contact;
+  notes: string;
 };
