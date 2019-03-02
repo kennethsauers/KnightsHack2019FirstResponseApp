@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
-const EventSchema = mongoose.Schema({
+const PinSchema = mongoose.Schema({
     type_of: {
       type: Number,
+      required: true
+    },
+    subject: {
+      type: String,
       required: true
     },
     category: {
@@ -49,9 +53,9 @@ const EventSchema = mongoose.Schema({
     }
 });
 
-const Event = module.exports = mongoose.model('Event', EventSchema);
+const Pin = module.exports = mongoose.model('Pin', PinSchema);
 
 // create an event
-module.exports.addEvent = function(newEvent, callback) {
-  newEvent.save(callback);
+module.exports.addPin = function(newPin, callback) {
+  newPin.save(callback);
 }
