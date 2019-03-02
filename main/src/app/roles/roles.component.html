@@ -1,0 +1,16 @@
+<div class= ridge>
+<table style="width:100%">
+  <tr>
+    <th><button (click)="role = 0" type="button" class = "button_Admin">Admin</button></th>
+    <th><button (click)="role = 1 " type="button" class = "button_Civilan">Civilan</button></th>
+
+    <th><button (click)="role = 2 " type="button" class = "button_Medical">Medical</button></th>
+    <th><button (click)="role = 3 " type="button" class = "button_FireFighter">Fire Fighter</button></th>
+    <th><button (click)="role = 4 " type="button" class = "button_DisasterRelief">Disaster Relief</button></th>
+    <th><button (click)="role = 5 " type="button" class = "button_Infrastructure">Infrastructure</button></th>
+
+  </tr>
+</table>
+<h1 [ngClass]="messageClasses"> Signed in as {{roleToString(role)}}</h1>
+
+</div>

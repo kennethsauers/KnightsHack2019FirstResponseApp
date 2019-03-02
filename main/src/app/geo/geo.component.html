@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>First Response App</title>
+    <style>
+    #map{
+        height:400px;
+        width:100%;
+    }
+    #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div id="floating-panel">
+        <input id="address" type="textbox" value="Enter Location">
+        <input id="submit" type="button" value="Geocode">
+    </div>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            // Map options (Orlando coords)
+            var options = {
+                zoom:15,
+                center:{lat:28.53823,lng:81.3792}
+            }
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            var infoWindow = new google.maps.InfoWindow;
+            var geocoder = new google.maps.Geocoder();
+
+            document.getElementById('submit').addEventListener('click', function() {
+                geocodeAddress(geocoder, map);
+            });
+
+            getCurrentAndCenter(infoWindow, map);
+            placeMarkersSequence(map,geocoder,infoWindow);
+            fillCurrentLocation();
+        }
+
+        function getCurrentAndCenter(infoWindow, map) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('You are here.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                                    'Error: The Geolocation service failed.' :
+                                    'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.open(map);
+            }
+        }
+
+        function fillCurrentLocation(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var currentPos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }; // Save this to DB when clicked for current
+                    var currentPosString = String(currentPos.lat) + "," +
+                        String(currentPos.lng); // Fill this into coordinates box of front end
+                    //console.log(currentPosString);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                                    'Error: The Geolocation service failed.' :
+                                    'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.open(map);
+            }
+        }
+
+        function placeMarkersSequence(map,geocoder,infoWindow){
+            // Example Array of markers
+            // FIXME give em icons based on category
+            // one of the following
+            // food.png hospital.png infra.png fire.png
+            // Fill in content from descriptions
+            // Take coordinates
+
+            var markers = [
+                {
+                    coords:{lat:28.607178,lng:-81.19736},
+                    //iconImage:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                    iconImage:'icons/hospital.png',
+                    content:'<h1>EXAMPLE: CFE Arena</h1>'
+                },
+                {
+                    coords:{lat:28.5984,lng:-81.2054},
+                    content:'<h1>Other location (regular marker)</h1>'
+                }
+            ];
+
+            for(var i = 0;i < markers.length;i++){
+                // Add marker
+                addMarker(markers[i],map);
+            }
+
+            function getAddressFromCoordinates(map, coordinates, geocoder, infowindow) {
+                var latlng = {lat:coordinates.lat(),lng:coordinates.lng()}
+                var retAddress = null;
+                geocoder.geocode({"location":latlng}, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            map.setZoom(15);
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: map
+                            });
+                            infowindow.setContent(results[0].formatted_address);
+                            infowindow.open(map, marker);
+                            retAddress = results[0].formatted_address; // Save this field into DB
+                        } else {
+                            window.alert('No results found');
+                        }
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                });
+            }
+
+            // Listen for double click on map
+            google.maps.event.addListener(map, 'dblclick', function(event){
+                coordinates = event.latLng;
+                getAddressFromCoordinates(map,coordinates,geocoder,infoWindow)
+            });
+        }
+
+        // Get coordinates for entered address
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('address').value;
+            var infoWindow = new google.maps.InfoWindow;
+            var retLocation = null;
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                    infoWindow.setContent(String(results[0].geometry.location.lat()) + "," +
+                        String(results[0].geometry.location.lng()));
+                    infoWindow.open(map, marker);
+                    retLocation = results[0].geometry.location; // Save this field into DB
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function addMarker(props,map) {
+            var marker = new google.maps.Marker({
+                position:props.coords,
+                map:map,
+                //icon:props.iconImage
+            });
+
+            if(props.iconImage){
+                marker.setIcon(props.iconImage);
+            }
+
+            // Check content
+            if(props.content){
+                var infoWindow = new google.maps.InfoWindow({
+                    content:props.content
+                });
+
+                marker.addListener('click', function(){
+                    infoWindow.open(map, marker);
+                });
+            }
+        }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA4hXOIT9XPRQUOddHq1TEli1DYyRdOOc&callback=initMap">
+    </script>
+</body>
+</html>
