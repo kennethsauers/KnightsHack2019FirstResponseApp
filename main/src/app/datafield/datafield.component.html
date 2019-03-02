@@ -1,0 +1,70 @@
+<h1>{{Subject}}</h1>
+<h1>{{Location}}</h1>
+<h1>{{Name}}</h1>
+<h1>{{Category}}</h1>
+<h1>{{Priority}}</h1>
+<h1>{{Phone}}</h1>
+<h1>{{Comment}}</h1>
+
+<div style="text-align:center">
+  <h1>
+    Data Field
+  </h1>
+  <h2> Welcome {{role}}</h2>
+  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+</div>
+
+
+
+<table align="center" style="width:80%">
+  <tr>
+    <th><label for="Subject">Subject</label></th>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Subject" ></td>
+  </tr>
+
+
+  <tr>
+    <th><label for="Category">Category</label></th>
+    <td><select [(ngModel)] = "Category">
+      <option value="Medical">Medical</option>
+      <option value="Infrastructure">Infrastructure</option>
+      <option value="Dasaster Relief">Dasaster Relief</option>
+    </select></td>
+  </tr>
+
+  <tr>
+    <th><label for="Priority">Priority    </label></th>
+    <td><select [(ngModel)] = "Priority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select></td>
+  </tr>
+
+  <tr>
+    <th><label for="Location">Location</label></th>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Location">
+    <button class="btn btn-primary">Current Location</button></td>
+  </tr>
+
+  <tr>
+    <th><label for="name">Name</label></th>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Name"></td>
+  </tr>
+
+  <tr>
+    <th><label for="phonenumber">Phone number</label></th>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Phone"></td>
+  </tr>
+
+  <tr>
+    <th><label for="comment">Comment</label></th>
+    <td><textarea id="comment" type="text" cols="30" rows="10" class="form_control" [(ngModel)] = "Comment"></textarea></td>
+  </tr>
+
+  <tr>
+    <th><button class="btn btn-primary">Respond</button></th>
+    <td><button class="btn btn-primary">Submit</button></td>
+  </tr>
+
+</table>
