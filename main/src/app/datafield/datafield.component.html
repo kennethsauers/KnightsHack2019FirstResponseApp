@@ -1,10 +1,10 @@
-<h1>{{Subject}}</h1>
-<h1>{{Location}}</h1>
-<h1>{{Name}}</h1>
-<h1>{{Category}}</h1>
-<h1>{{Priority}}</h1>
-<h1>{{Phone}}</h1>
-<h1>{{Comment}}</h1>
+<h1>{{pin.Subject}}</h1>
+<h1>{{pin.Location}}</h1>
+<h1>{{pin.Name}}</h1>
+<h1>{{pin.Category}}</h1>
+<h1>{{pin.Priority}}</h1>
+<h1>{{pin.Phone}}</h1>
+<h1>{{pin.Comment}}</h1>
 
 <div style="text-align:center">
   <h1>
@@ -15,17 +15,16 @@
 </div>
 
 
-
 <table align="center" style="width:80%">
   <tr>
     <th><label for="Subject">Subject</label></th>
-    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Subject" ></td>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "pin.Subject"></td>
   </tr>
 
 
   <tr>
     <th><label for="Category">Category</label></th>
-    <td><select [(ngModel)] = "Category">
+    <td><select [(ngModel)] = "pin.Category">
       <option value="Medical">Medical</option>
       <option value="Infrastructure">Infrastructure</option>
       <option value="Dasaster Relief">Dasaster Relief</option>
@@ -34,7 +33,7 @@
 
   <tr>
     <th><label for="Priority">Priority    </label></th>
-    <td><select [(ngModel)] = "Priority">
+    <td><select [(ngModel)] = "pin.Priority">
       <option value="Low">Low</option>
       <option value="Medium">Medium</option>
       <option value="High">High</option>
@@ -43,28 +42,28 @@
 
   <tr>
     <th><label for="Location">Location</label></th>
-    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Location">
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "pin.Location">
     <button class="btn btn-primary">Current Location</button></td>
   </tr>
 
   <tr>
     <th><label for="name">Name</label></th>
-    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Name"></td>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "pin.Name"></td>
   </tr>
 
   <tr>
     <th><label for="phonenumber">Phone number</label></th>
-    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "Phone"></td>
+    <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "pin.Phone"></td>
   </tr>
 
   <tr>
     <th><label for="comment">Comment</label></th>
-    <td><textarea id="comment" type="text" cols="30" rows="10" class="form_control" [(ngModel)] = "Comment"></textarea></td>
+    <td><textarea id="comment" type="text" cols="30" rows="10" class="form_control" [(ngModel)] = "pin.Comment"></textarea></td>
   </tr>
 
   <tr>
     <th><button class="btn btn-primary">Respond</button></th>
-    <td><button class="btn btn-primary">Submit</button></td>
+    <td><button class="btn btn-primary" type = "submit">Submit</button></td>
   </tr>
 
 </table>

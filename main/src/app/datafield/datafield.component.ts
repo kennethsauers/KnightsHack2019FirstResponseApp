@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Pin } from '../entities';
+import { PinService } from '../pin.service'
 @Component({
   selector: 'app-datafield',
   templateUrl: './datafield.component.html',
@@ -8,23 +9,18 @@ import { Component, OnInit } from '@angular/core';
 
 export class DatafieldComponent implements OnInit {
 
-  public role = "police";
+  public pin: Pin;
 
-
-
-  public Subject: string = "initial value";
-  public Category: string = "initial value";
-  public Priority: string = "initial value";
-  public Location: string = "initial value";
-  public Name: string = "initial value";
-  public Phone: string = "initial value";
-  public Comment: string = "initial value";
-
-
-
-  constructor() { }
+  constructor(
+    private pinService : PinService
+  ) {
+    if(! this.pin){
+    this.pin={}
+  }
+   }
 
   ngOnInit() {
   }
+  
 
 }

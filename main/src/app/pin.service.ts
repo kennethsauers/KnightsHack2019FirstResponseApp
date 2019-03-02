@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Pin } from 'entities';
 
 @Injectable({
   providedIn: 'root'
@@ -6,4 +7,7 @@ import { Injectable } from '@angular/core';
 export class PinService {
 
   constructor() { }
+  getData(){
+
+  }
 }
