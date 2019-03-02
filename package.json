@@ -4,6 +4,7 @@
   "description": "api",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,7 +12,7 @@
     "url": "git+https://github.com/kennethsauers/KnightsHack2019FirstResponseApp.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kennethsauers/KnightsHack2019FirstResponseApp/issues"
   },
