@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -19,7 +21,7 @@ const app = express();
 
 const api = require('./routes/api')
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Set Static (angular build folder) Folder
 app.use(express.static(path.join(__dirname, 'public')));

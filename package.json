@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/kennethsauers/KnightsHack2019FirstResponseApp.git"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -20,6 +23,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongoose": "^5.4.16"
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.16",
+    "nconf": "^0.10.0"
   }
 }

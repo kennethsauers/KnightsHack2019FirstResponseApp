@@ -49,4 +49,9 @@ const EventSchema = mongoose.Schema({
     }
 });
 
-module.exports = EventSchema;
+const Event = module.exports = mongoose.model('Event', EventSchema);
+
+// create an event
+module.exports.addEvent = function(newEvent, callback) {
+  newEvent.save(callback);
+}

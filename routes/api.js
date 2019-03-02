@@ -7,4 +7,14 @@ router.get('/', (req, res, next) => {
   return res.json({ success: true });
 });
 
+router.put('/events/create', (req, res, next) => {
+  const newEvent = req.body;
+
+  Event.addEvent(newEvent, (err, model) => {
+    if (err) return res.json({ success: false, msg: err });
+
+    res.json({ success: true, event: model });
+  });
+});
+
 module.exports = router;
