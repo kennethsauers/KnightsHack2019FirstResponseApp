@@ -32,6 +32,8 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.showLocation();
+    this.loc.lat = 28.602427;
+    this.loc.long = -81.200058;
     this.sideBarService.roleChange.subscribe(role => {
       this.pinService.getRolePins(role || 0).subscribe(pins => {
         this.pins = pins;
@@ -47,7 +49,7 @@ export class MapComponent implements OnInit {
     this.geocodeService.geocodeAddress(this.loc.address)
     .subscribe((location: Location) => {
         this.loc = location;
-        this.sideBarService.fuck(location);
+        this.sideBarService.mapEmit(location);
       }
     );
   }

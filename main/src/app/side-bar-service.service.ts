@@ -18,7 +18,7 @@ export class SideBarService {
     });
   }
 
-  fuck(loca){
+  mapEmit(loca){
     this.change.emit(loca);
   }
 
