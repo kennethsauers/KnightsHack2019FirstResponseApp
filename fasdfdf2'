@@ -1,0 +1,118 @@
+[1mdiff --git a/main/src/app/datafield/datafield.component.html b/main/src/app/datafield/datafield.component.html[m
+[1mindex 2710cb2..ce66a34 100644[m
+[1m--- a/main/src/app/datafield/datafield.component.html[m
+[1m+++ b/main/src/app/datafield/datafield.component.html[m
+[36m@@ -1,6 +1,7 @@[m
+ <div style="text-align:center">[m
+   <h1>[m
+     Data Field[m
+[32m+[m[32m    {{pin.location.address}}[m
+   </h1>[m
+ [m
+ [m
+[36m@@ -37,7 +38,7 @@[m
+   <tr>[m
+     <th><label for="Location">Location</label></th>[m
+     <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "pin.location.address">[m
+[31m-    <button class="btn btn-primary" (click)="getPosition(); getPosition();">Current Location</button></td>[m
+[32m+[m[32m    <button class="btn btn-primary" (click)=" getPosition();">Current Location</button></td>[m
+   </tr>[m
+ [m
+   <tr>[m
+[1mdiff --git a/main/src/app/datafield/datafield.component.ts b/main/src/app/datafield/datafield.component.ts[m
+[1mindex 81848ca..e8c5230 100644[m
+[1m--- a/main/src/app/datafield/datafield.component.ts[m
+[1m+++ b/main/src/app/datafield/datafield.component.ts[m
+[36m@@ -19,21 +19,23 @@[m [mexport class DatafieldComponent implements OnInit {[m
+   @HostBinding('class.roles')[m
+   public pin: Pin;[m
+   public role : number;[m
+[31m-  public lat: number;[m
+[31m-  public long: number;[m
+[32m+[m[32m  public address : string;[m
+ [m
+[31m-  public getPosition(){[m
+[32m+[m[32m   getPosition(){[m
+ [m
+     navigator.geolocation.watchPosition((pos: Position) => {[m
+       this.pin.location.lat =  pos.coords.latitude;[m
+       this.pin.location.long = pos.coords.longitude;[m
+ [m
+     })[m
+[31m-[m
+[31m-    this.pin.location.address = "kenneth";[m
+[31m-  }[m
+[32m+[m[32m    this.geocodeService.getAddressFromCoordinates(this.pin.location, addy => {[m
+[32m+[m[32m      console.log(addy);[m
+[32m+[m[32m      this.pin.location.address = addy;[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+ [m
+ [m
+[32m+[m[32m}[m
+ [m
+   constructor(private pinService : PinService,[m
+               private sideBarService: SideBarService,[m
+[1mdiff --git a/main/src/app/geocode.service.ts b/main/src/app/geocode.service.ts[m
+[1mindex bf21921..82f49a7 100644[m
+[1m--- a/main/src/app/geocode.service.ts[m
+[1m+++ b/main/src/app/geocode.service.ts[m
+[36m@@ -16,7 +16,6 @@[m [mexport class GeocodeService {[m
+ [m
+   private initGeocoder() {[m
+     this.geocoder = new google.maps.Geocoder();[m
+[31m-    this.getAddressFromCoordinates("here");[m
+   }[m
+ [m
+   private waitForMapsToLoad(): Observable<boolean> {[m
+[36m@@ -44,7 +43,7 @@[m [mexport class GeocodeService {[m
+               });[m
+             } else {[m
+                 console.log('Error - ', results, ' & Status - ', status);[m
+[31m-                observer.next({ lat: 0, long: 0, address: " " });[m
+[32m+[m[32m                observer.next({ lat: 0, long: 0, address: "" });[m
+             }[m
+             observer.complete();[m
+           });[m
+[36m@@ -53,24 +52,23 @@[m [mexport class GeocodeService {[m
+     )[m
+   }[m
+ [m
+[31m-  getAddressFromCoordinates(coordinates) {[m
+[32m+[m[32m  getAddressFromCoordinates(coordinates, callback) : string{[m
+     //var latlng = {lat:coordinates.lat(),lng:coordinates.lng()}[m
+[31m-    var latlng = {lat:28.6024,lng:-81.2001}[m
+[32m+[m[32m    var latlng = {lat:coordinates.lat,lng:coordinates.long}[m
+     var retAddress = null;[m
+     this.geocoder.geocode({"location":latlng}, function(results, status) {[m
+         if (status === 'OK') {[m
+             if (results[0]) {[m
+                 retAddress = results[0].formatted_address; // Save this field into DB[m
+[31m-                //return retAddress;[m
+                 console.log(retAddress);[m
+[32m+[m
+[32m+[m[32m                callback(retAddress);[m
+               } else {[m
+[31m-                window.alert('No results found');[m
+             }[m
+         } else {[m
+[31m-            window.alert('Geocoder failed due to: ' + status);[m
+         }[m
+     });[m
+[31m-[m
+[32m+[m[32mreturn retAddress;[m
+ }[m
+ [m
+ }[m
+[1mdiff --git a/main/src/app/map/map.component.html b/main/src/app/map/map.component.html[m
+[1mindex 4670073..22e4994 100644[m
+[1m--- a/main/src/app/map/map.component.html[m
+[1m+++ b/main/src/app/map/map.component.html[m
+[36m@@ -1,6 +1,6 @@[m
+ <agm-map [latitude] = "this.loc?.lat"[m
+          [longitude] = "this.loc?.long"[m
+[31m-         (mapClick)="onChoseLocation($event)" *ngIf="this.pins">[m
+[32m+[m[32m         (mapClick)="onChoseLocation($event)" >[m[41m[m
+   <agm-marker[m
+       [latitude]="pin.location.lat.$numberDecimal"[m
+       [longitude]="pin.location.long.$numberDecimal"[m

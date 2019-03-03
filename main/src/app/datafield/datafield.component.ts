@@ -19,21 +19,23 @@ export class DatafieldComponent implements OnInit {
   @HostBinding('class.roles')
   public pin: Pin;
   public role : number;
-  public lat: number;
-  public long: number;
+  public address : string;
 
-  public getPosition(){
+   getPosition(){
 
     navigator.geolocation.watchPosition((pos: Position) => {
       this.pin.location.lat =  pos.coords.latitude;
       this.pin.location.long = pos.coords.longitude;
 
     })
+    this.geocodeService.getAddressFromCoordinates(this.pin.location, addy => {
+      console.log(addy);
+      this.pin.location.address = addy;
+    });
+    
 
-    this.pin.location.address = "kenneth";
-  }
 
-
+}
 
   constructor(private pinService : PinService,
               private sideBarService: SideBarService,

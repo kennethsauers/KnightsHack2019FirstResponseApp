@@ -1,6 +1,6 @@
 <agm-map [latitude] = "this.loc?.lat"
          [longitude] = "this.loc?.long"
-         (mapClick)="onChoseLocation($event)" *ngIf="this.pins">
+         (mapClick)="onChoseLocation($event)" >
   <agm-marker
       [latitude]="pin.location.lat.$numberDecimal"
       [longitude]="pin.location.long.$numberDecimal"
