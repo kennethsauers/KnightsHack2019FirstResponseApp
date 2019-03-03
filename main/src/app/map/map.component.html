@@ -1,14 +1,14 @@
-<agm-map [latitude] = "loc.lat" [longitude] = "loc.long" (mapClick)="onChoseLocation($event)">
-
-
+<agm-map [latitude] = "this.loc?.lat"
+         [longitude] = "this.loc?.long"
+         (mapClick)="onChoseLocation($event)" *ngIf="this.pins">
   <agm-marker
-  [latitude] = "latitude"
-  [longitude] = "longitude"
-  *ngIf="locationChosen"></agm-marker>
-
+      [latitude]="pin.location.lat.$numberDecimal"
+      [longitude]="pin.location.long.$numberDecimal"
+      *ngFor="let pin of this.pins; let i=index">
+  </agm-marker>
 </agm-map>
 
 <form (ngSubmit)="showLocation()">
-  <input type="text" [(ngModel)]="loc.address" required [ngModelOptions]="{standalone: true}">
+  <input type="text" [(ngModel)]="this.loc.address" required [ngModelOptions]="{standalone: true}">
   <button type="submit">Show Location</button>
 </form>

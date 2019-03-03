@@ -1,20 +1,18 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { GeocodeService} from '../geocode.service'
-import { SideBarService} from '../side-bar-service.service'
+import { GeocodeService } from '../geocode.service'
+import { SideBarService } from '../side-bar-service.service'
+import { PinService } from '../pin.service';
 
-import {Location} from '../entities'
+import { Location, Pin } from '../entities'
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-
-
-
-  loc : Location = {lat : 66.666,
-                    long : 33.333,
-                    address: " "}
+  private pins: Pin[];
+  private loc = new Location();
+  private role: number;
 
   locationChosen = false;
 
@@ -22,16 +20,23 @@ export class MapComponent implements OnInit {
     console.log(event)
     //this.latitude = event.coords.lat;
     //this.longitude = event.coords.lng;
+    this.loc.lat = event.coords.lat;
+    this.loc.long = event.coords.lng;
     this.locationChosen = true;
   }
 
-
-  constructor(
+  constructor (
       private geocodeService: GeocodeService,
-      private sideBarService: SideBarService
-    ) {}
+      private sideBarService: SideBarService,
+      private pinService: PinService) { }
+
   ngOnInit() {
     this.showLocation();
+    this.sideBarService.roleChange.subscribe(role => {
+      this.pinService.getRolePins(role || 0).subscribe(pins => {
+        this.pins = pins;
+      });
+    });
   }
 
   showLocation() {
@@ -46,5 +51,4 @@ export class MapComponent implements OnInit {
       }
     );
   }
-
 }

@@ -9,29 +9,16 @@ import { SideBarService} from '../side-bar-service.service'
 export class RolesComponent implements OnInit {
 
   public role : number = 1;
-/*
-  public messageClasses = {
-    "button_Admin" : (this.role == 0),
-    "button_Civilan" : (this.role == 1),
-    "button_Medical" : (this.role == 2),
-    "button_FireFighter" : (this.role == 3),
-    "button_DisasterRelief" : (this.role == 4),
-    "button_Infrastructure" : (this.role == 5)
 
-  }
-*/
+  constructor(private sideBarService: SideBarService) {}
 
+  ngOnInit() {}
 
-  constructor(
-    private sideBarService: SideBarService) {}
-  ngOnInit() {
-    
-  }
-  getRole(): number{
+  getRole(): number {
     return this.role;
   }
 
-  roleToString(num : number){
+  roleToString(num : number) {
     if(num == 0){
       return "Admin"
     }
@@ -53,8 +40,8 @@ export class RolesComponent implements OnInit {
     return "null"
   }
 
-  sendRoles(num){
-        this.role = num
-        this.sideBarService.roleSideBar(this.role);
-}
+  sendRoles(num) {
+    this.role = num;
+    this.sideBarService.roleSideBar(this.role);
+  }
 }

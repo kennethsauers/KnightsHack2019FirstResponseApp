@@ -1,23 +1,29 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import {Location} from './entities';
+import {Pin, Location} from './entities';
+import {PinService} from './pin.service';
 
 @Injectable()
 export class SideBarService {
-
+  public pins: Pin[];
+  public role: number;
 
   @Output() change: EventEmitter<Location> = new EventEmitter();
   @Output() roleChange: EventEmitter<number> = new EventEmitter();
 
+  constructor (private pinService: PinService) { }
+
+  hello() {
+    this.pinService.getRolePins(this.role).subscribe(pins => {
+      this.pins = pins;
+    });
+  }
 
   fuck(loca){
-    console.log(loca);
     this.change.emit(loca);
   }
 
   roleSideBar(role){
-    console.log(role);
+    this.role = role;
     this.roleChange.emit(role);
-    
   }
-
 }

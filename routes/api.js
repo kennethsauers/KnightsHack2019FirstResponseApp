@@ -7,21 +7,21 @@ router.get('/', (req, res, next) => {
   return res.json({ success: true });
 });
 
-router.get('/pin/:role', (req, res, next) => {
+router.get('/pin/get/:role', (req, res, next) => {
    const role = req.params.role;
 
    Pin.getPin(role, (err, pins) => {
      if (err) return res.json({ success: false, msg: err });
 
-     return res.json({ success: true, pins: pins });
+     return res.json( pins );
    });
 });
 
-router.get('/pin', (req, res, next) => {
+router.get('/pin/get', (req, res, next) => {
   Pin.getPin(null, (err, pins) => {
     if (err) return res.json({ success: false, msg: err });
 
-    return res.json({ success: true, pins: pins });
+    return res.json( pins );
   });
 });
 

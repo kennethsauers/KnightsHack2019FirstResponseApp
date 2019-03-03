@@ -15,7 +15,6 @@ export class GeocodeService {
   constructor(private mapLoader: MapsAPILoader) {}
 
   private initGeocoder() {
-    console.log('Init geocoder!');
     this.geocoder = new google.maps.Geocoder();
     this.getAddressFromCoordinates("here");
   }
@@ -32,14 +31,12 @@ export class GeocodeService {
   }
 
   geocodeAddress(location: string): Observable<Location> {
-    console.log('Start geocoding!');
     return this.waitForMapsToLoad().pipe(
       // filter(loaded => loaded),
       switchMap(() => {
         return new Observable(observer => {
           this.geocoder.geocode({'address': location}, (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
-              console.log('Geocoding complete!');
               observer.next({
                 lat: results[0].geometry.location.lat(),
                 long: results[0].geometry.location.lng(),
@@ -73,7 +70,7 @@ export class GeocodeService {
             window.alert('Geocoder failed due to: ' + status);
         }
     });
-    
+
 }
 
 }
