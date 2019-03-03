@@ -8,6 +8,19 @@ import { Pin } from './entities';
 export class PinService {
   constructor(private http: HttpClient) { }
 
+  clearPins() {
+    const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
+
+    interface ClearPinResponse {
+      success: boolean;
+      msg?: string;
+    }
+
+    return this.http.delete<ClearPinResponse>('/api/pin/all', { headers: headers });
+  }
+
   createPin(newPin: Pin){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'

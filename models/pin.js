@@ -65,3 +65,9 @@ module.exports.getPin = function(type_of, callback) {
     });
   }
 }
+
+module.exports.deleteAll = function(callback) {
+  Pin.deleteMany({}, (err) => {
+    callback(err);
+  });
+}

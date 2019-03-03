@@ -7,6 +7,14 @@ router.get('/', (req, res, next) => {
   return res.json({ success: true });
 });
 
+router.delete('/pin/all', (req, res, next) => {
+  Pin.deleteAll(err => {
+    if (err) return res.json({ success: false, msg: err });
+
+    return res.json({ success: true });
+  });
+});
+
 router.get('/pin/get/:role', (req, res, next) => {
    const role = req.params.role;
 

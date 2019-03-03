@@ -26,4 +26,11 @@ export class SideBarService {
     this.role = role;
     this.roleChange.emit(role);
   }
+
+  clearPins() {
+    this.pinService.clearPins().subscribe(ret => {
+      if (!ret.success)
+        console.log("something didn't work");
+    });
+  }
 }

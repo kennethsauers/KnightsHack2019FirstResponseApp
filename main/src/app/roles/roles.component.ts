@@ -7,7 +7,7 @@ import { SideBarService} from '../side-bar-service.service'
   styleUrls: ['./roles.component.css']
 })
 export class RolesComponent implements OnInit {
-
+  private admined: boolean = false;
   public role : number = 1;
 
   constructor(private sideBarService: SideBarService) {}
@@ -43,5 +43,11 @@ export class RolesComponent implements OnInit {
   sendRoles(num) {
     this.role = num;
     this.sideBarService.roleSideBar(this.role);
+    // we were admin already and we click it again, clear
+    if (this.admined) {
+      this.sideBarService.clearPins();
+      this.admined = false;
+    } else
+      this.admined = (this.role == num && num == 0) && !this.admined;
   }
 }
