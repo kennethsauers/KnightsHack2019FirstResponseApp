@@ -17,6 +17,7 @@ export class GeocodeService {
   private initGeocoder() {
     console.log('Init geocoder!');
     this.geocoder = new google.maps.Geocoder();
+    this.getAddressFromCoordinates("here");
   }
 
   private waitForMapsToLoad(): Observable<boolean> {
@@ -54,5 +55,25 @@ export class GeocodeService {
       })
     )
   }
+
+  getAddressFromCoordinates(coordinates) {
+    //var latlng = {lat:coordinates.lat(),lng:coordinates.lng()}
+    var latlng = {lat:28.6024,lng:-81.2001}
+    var retAddress = null;
+    this.geocoder.geocode({"location":latlng}, function(results, status) {
+        if (status === 'OK') {
+            if (results[0]) {
+                retAddress = results[0].formatted_address; // Save this field into DB
+                //return retAddress;
+                console.log(retAddress);
+              } else {
+                window.alert('No results found');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });
+    
+}
 
 }
