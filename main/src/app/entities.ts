@@ -1,9 +1,7 @@
-export class Location {
-  cooords: {
-    lat: number,
-    long: number
-  };
-  address: string;
+export class Location{
+    lat: number;
+    long: number;
+    address: string;
 };
 
 export class Contact {

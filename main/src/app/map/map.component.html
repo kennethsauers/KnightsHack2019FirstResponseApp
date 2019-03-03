@@ -1,0 +1,14 @@
+<agm-map [latitude] = "loc.lat" [longitude] = "loc.long" (mapClick)="onChoseLocation($event)">
+
+
+  <agm-marker
+  [latitude] = "latitude"
+  [longitude] = "longitude"
+  *ngIf="locationChosen"></agm-marker>
+
+</agm-map>
+
+<form (ngSubmit)="showLocation()">
+  <input type="text" [(ngModel)]="loc.address" required [ngModelOptions]="{standalone: true}">
+  <button type="submit">Show Location</button>
+</form>

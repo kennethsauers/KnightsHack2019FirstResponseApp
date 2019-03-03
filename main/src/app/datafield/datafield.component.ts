@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Pin, Location, Contact } from '../entities';
 import { PinService } from '../pin.service'
+import { SideBarService } from '../side-bar-service.service'
+
 
 @Component({
   selector: 'app-datafield',
@@ -10,9 +12,11 @@ import { PinService } from '../pin.service'
 
 export class DatafieldComponent implements OnInit {
 
+  @HostBinding('class.loc')
   public pin: Pin;
 
-  constructor(private pinService : PinService) {   }
+  constructor(private pinService : PinService,
+              private sideBarService: SideBarService) {   }
 
   ngOnInit() {
     if(!this.pin) {
@@ -20,8 +24,14 @@ export class DatafieldComponent implements OnInit {
       this.pin.location = new Location();
       this.pin.contact = new Contact();
     }
+    this.sideBarService.change.subscribe(loc => {
+      this.pin.location = loc;
+    });
   }
 
+
+
   onPinCreate() {
+    
   }
 }
