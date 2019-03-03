@@ -32,6 +32,7 @@ import { MapComponent } from './map/map.component';
     }),
     AppRoutingModule,
     HttpClientModule,
+
     FormsModule
 
   ],

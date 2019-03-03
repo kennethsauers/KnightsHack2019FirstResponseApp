@@ -15,7 +15,7 @@ export class Pin {
   category: string;
   status: boolean;
   priority: number;
-  location: Location;
+  location = new Location();
   contact: Contact;
   notes: string;
 };

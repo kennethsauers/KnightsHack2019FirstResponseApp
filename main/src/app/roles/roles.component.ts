@@ -25,7 +25,7 @@ export class RolesComponent implements OnInit {
   constructor(
     private sideBarService: SideBarService) {}
   ngOnInit() {
-    this.sendRoles();
+    
   }
   getRole(): number{
     return this.role;

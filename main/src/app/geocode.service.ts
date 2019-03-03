@@ -46,7 +46,7 @@ export class GeocodeService {
               });
             } else {
                 console.log('Error - ', results, ' & Status - ', status);
-                observer.next({ lat: 0, long: 0, address: "kkek" });
+                observer.next({ lat: 0, long: 0, address: " " });
             }
             observer.complete();
           });

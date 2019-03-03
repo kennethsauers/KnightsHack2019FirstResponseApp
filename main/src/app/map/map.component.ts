@@ -14,7 +14,7 @@ export class MapComponent implements OnInit {
 
   loc : Location = {lat : 66.666,
                     long : 33.333,
-                    address: "you mama house"}
+                    address: " "}
 
   locationChosen = false;
 

@@ -2,6 +2,9 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { Pin, Location, Contact } from '../entities';
 import { PinService } from '../pin.service'
 import { SideBarService } from '../side-bar-service.service'
+import { Observable } from 'rxjs/Observable';
+import { GeocodeService} from '../geocode.service';
+
 
 
 @Component({
@@ -16,9 +19,25 @@ export class DatafieldComponent implements OnInit {
   @HostBinding('class.roles')
   public pin: Pin;
   public role : number;
+  public lat: number;
+  public long: number;
+
+  public getPosition(){
+
+    navigator.geolocation.watchPosition((pos: Position) => {
+      this.pin.location.lat =  pos.coords.latitude;
+      this.pin.location.long = pos.coords.longitude;
+
+    })
+
+    this.pin.location.address = "kenneth";
+  }
+
+
 
   constructor(private pinService : PinService,
-              private sideBarService: SideBarService) {   }
+              private sideBarService: SideBarService,
+              private geocodeService: GeocodeService) {   }
 
   ngOnInit() {
     if(!this.pin) {
@@ -34,7 +53,9 @@ export class DatafieldComponent implements OnInit {
     })
     this.pin.priority = 1;
     this.pin.type_of = 1;
+
     }
+
 
   onPinCreate() {
     this.pinService.createPin(this.pin).subscribe((data) => {
