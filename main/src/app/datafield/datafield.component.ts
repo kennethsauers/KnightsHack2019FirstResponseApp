@@ -27,11 +27,17 @@ export class DatafieldComponent implements OnInit {
     this.sideBarService.change.subscribe(loc => {
       this.pin.location = loc;
     });
-  }
-
-
+    this.pin.priority = 1;
+    this.pin.type_of = 1;
+    }
 
   onPinCreate() {
-    
+    this.pinService.createPin(this.pin).subscribe((data) => {
+      if (data.success) {
+        console.log("Created!");
+      } else {
+        console.log("not created " + data.msg);
+      }
+    });
   }
 }

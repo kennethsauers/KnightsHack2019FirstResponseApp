@@ -26,19 +26,21 @@
 
   <tr>
     <th><label for="Category">Category</label></th>
-    <td><select [(ngModel)] = "pin.category">
-      <option value="Medical">Medical</option>
-      <option value="Infrastructure">Infrastructure</option>
-      <option value="Disaster Relief">Disaster Relief</option>
+    <td><select [(ngModel)] = "pin.type_of">
+      <option value="1">Civilian</option>
+      <option value="2">Medical</option>
+      <option value="3">Fire Fighter</option>
+      <option value="4">Disaster Relief</option>
+      <option value="5">Infrastructure</option>
     </select></td>
   </tr>
 
   <tr>
-    <th><label for="Priority">Priority    </label></th>
+    <th><label for="Priority">Priority</label></th>
     <td><select [(ngModel)] = "pin.priority">
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
+      <option value="1">Low</option>
+      <option value="2">Medium</option>
+      <option value="3">High</option>
     </select></td>
   </tr>
 
