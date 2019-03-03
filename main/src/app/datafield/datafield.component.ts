@@ -13,7 +13,9 @@ import { SideBarService } from '../side-bar-service.service'
 export class DatafieldComponent implements OnInit {
 
   @HostBinding('class.loc')
+  @HostBinding('class.roles')
   public pin: Pin;
+  public role : number;
 
   constructor(private pinService : PinService,
               private sideBarService: SideBarService) {   }
@@ -27,6 +29,9 @@ export class DatafieldComponent implements OnInit {
     this.sideBarService.change.subscribe(loc => {
       this.pin.location = loc;
     });
+    this.sideBarService.roleChange.subscribe(role => {
+      this.role = role;
+    })
     this.pin.priority = 1;
     this.pin.type_of = 1;
     }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { SideBarService} from '../side-bar-service.service'
 
 @Component({
   selector: 'app-roles',
@@ -21,8 +22,13 @@ export class RolesComponent implements OnInit {
 */
 
 
-  constructor() { }
+  constructor(
+    private sideBarService: SideBarService) {}
   ngOnInit() {
+    this.sendRoles();
+  }
+  getRole(): number{
+    return this.role;
   }
 
   roleToString(num : number){
@@ -46,4 +52,9 @@ export class RolesComponent implements OnInit {
     }
     return "null"
   }
+
+  sendRoles(num){
+        this.role = num
+        this.sideBarService.roleSideBar(this.role);
+}
 }
