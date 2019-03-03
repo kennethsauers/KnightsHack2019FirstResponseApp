@@ -1,7 +1,6 @@
 <div style="text-align:center">
   <h1>
     Data Field
-    {{pin.location.address}}
   </h1>
 
 
@@ -38,7 +37,7 @@
   <tr>
     <th><label for="Location">Location</label></th>
     <td><input id="Subject" type="text" class="form-control" [(ngModel)] = "pin.location.address">
-    <button class="btn btn-primary" (click)=" getPosition();">Current Location</button></td>
+    <button class="btn btn-primary" (click)="getPosition(); getPosition();">Current Location</button></td>
   </tr>
 
   <tr>
